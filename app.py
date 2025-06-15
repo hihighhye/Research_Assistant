@@ -233,6 +233,10 @@ with st.sidebar:
         if submitted:
             os.environ['OPENAI_API_KEY'] = user_openai_api_key
 
+            if "assistant_id" not in st.session_state:
+                assistant = create_assistant()
+                st.session_state["assistant_id"] = assistant.id
+
 st.title("Research Assistant")
 
 st.markdown(
@@ -247,10 +251,6 @@ st.markdown(
 )
 
 st.divider()
-
-if "assistant_id" not in st.session_state:
-    assistant = create_assistant()
-    st.session_state["assistant_id"] = assistant.id
 
 query = st.chat_input("Ask anything that you want to research.")
 
